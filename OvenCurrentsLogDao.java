@@ -10,9 +10,7 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by Mateusz S on 24.08.2018.
- */
+
 
 @Dao
 public interface OvenCurrentsLogDao {

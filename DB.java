@@ -12,9 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by Mateusz S on 06.12.2017.
- */
+
 @Database(
         entities = {
                 TemperatureLog.class,

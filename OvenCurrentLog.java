@@ -5,9 +5,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-/**
- * Created by Mateusz S on 06.12.2017.
- */
+
 
 @Entity(tableName = "oven_currents_logs")
 public class OvenCurrentLog {

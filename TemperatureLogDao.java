@@ -11,9 +11,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by Mateusz S on 24.08.2018.
- */
+
 
 @Dao
 public interface TemperatureLogDao {

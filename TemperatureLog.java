@@ -7,9 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 //import com.foodrobotics.vmc.modules.Logger;
 
-/**
- * Created by Mateusz S on 06.12.2017.
- */
+
 
 @Entity(tableName = "temperature_logs")
 public class TemperatureLog {
