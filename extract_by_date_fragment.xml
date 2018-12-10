@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="45dp" />
+            app:layout_constraintGuide_begin="81dp" />
 
         <Button
             android:id="@+id/btnShow"
@@ -39,7 +39,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
             android:text="@string/btnShow"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
@@ -52,13 +52,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="137dp" />
+            app:layout_constraintGuide_begin="277dp" />
 
         <TextView
             android:id="@+id/start_date"
             android:layout_width="70dp"
-            android:layout_height="26dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             android:autofillHints="@string/start_date"
@@ -74,8 +74,8 @@
         <TextView
             android:id="@+id/stop_date"
             android:layout_width="70dp"
-            android:layout_height="26dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="16dp"
             android:autofillHints="@string/stop_date"
@@ -90,7 +90,7 @@
         <TextView
             android:id="@+id/start_time"
             android:layout_width="70dp"
-            android:layout_height="26dp"
+            android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
@@ -106,7 +106,7 @@
         <TextView
             android:id="@+id/stop_time"
             android:layout_width="70dp"
-            android:layout_height="26dp"
+            android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="16dp"
@@ -129,7 +129,7 @@
         <Button
             android:id="@+id/button1"
             android:layout_width="40dp"
-            android:layout_height="26dp"
+            android:layout_height="40dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
@@ -142,7 +142,7 @@
         <Button
             android:id="@+id/button2"
             android:layout_width="40dp"
-            android:layout_height="26dp"
+            android:layout_height="40dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
@@ -155,7 +155,7 @@
         <Button
             android:id="@+id/button3"
             android:layout_width="40dp"
-            android:layout_height="26dp"
+            android:layout_height="40dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="12dp"
@@ -168,7 +168,7 @@
         <Button
             android:id="@+id/button4"
             android:layout_width="40dp"
-            android:layout_height="26dp"
+            android:layout_height="40dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"

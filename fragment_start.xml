@@ -9,34 +9,46 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="237dp"
-        android:layout_height="213dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="101dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="60dp"
-        android:background="@mipmap/ic_launcher"
-        android:contentDescription="@string/imageStart"
-        android:src="@android:drawable/sym_def_app_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="329dp"
-        android:layout_height="57dp"
+        android:id="@+id/tvPowitanie"
+        android:layout_width="258dp"
+        android:layout_height="56dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/tvPowitanie"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintBottom_toTopOf="@+id/btnTemperature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnTemperature"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:onClick="onTemperatureClick"
+        android:text="@string/btnTemperature"
+        app:layout_constraintBottom_toTopOf="@+id/btnOven"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPowitanie" />
+
+    <Button
+        android:id="@+id/btnOven"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="200dp"
+        android:text="@string/btnOven"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTemperature" />
 </android.support.constraint.ConstraintLayout>
