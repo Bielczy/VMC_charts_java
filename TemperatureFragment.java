@@ -3,9 +3,11 @@ package com.example.bielczy.vmc_charts_java.db;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.bielczy.vmc_charts_java.R;
 

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".db.ExtractByDateFragment">
 
+
     <!-- TODO: Update blank fragment layout -->
 
     <android.support.constraint.ConstraintLayout
@@ -65,7 +66,7 @@
             android:hint="@string/start_date"
             android:text="@string/start_date"
             app:layout_constraintBottom_toTopOf="@+id/stop_date"
-            app:layout_constraintEnd_toStartOf="@+id/button1"
+            app:layout_constraintEnd_toStartOf="@+id/btnDateStart"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline4"
@@ -82,7 +83,7 @@
             android:hint="@string/stop_date"
             android:text="@string/stop_date"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
-            app:layout_constraintEnd_toStartOf="@+id/button2"
+            app:layout_constraintEnd_toStartOf="@+id/btnDateStop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_date"
             tools:targetApi="o" />
@@ -98,8 +99,8 @@
             android:hint="@string/start_time"
             android:text="@string/start_time"
             app:layout_constraintBottom_toTopOf="@+id/stop_time"
-            app:layout_constraintEnd_toStartOf="@+id/button3"
-            app:layout_constraintStart_toEndOf="@+id/button1"
+            app:layout_constraintEnd_toStartOf="@+id/btnTimeStart"
+            app:layout_constraintStart_toEndOf="@+id/btnDateStart"
             app:layout_constraintTop_toBottomOf="@+id/guideline4"
             tools:targetApi="o" />
 
@@ -114,8 +115,8 @@
             android:hint="@string/stop_time"
             android:text="@string/stop_time"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
-            app:layout_constraintEnd_toStartOf="@+id/button4"
-            app:layout_constraintStart_toEndOf="@+id/button2"
+            app:layout_constraintEnd_toStartOf="@+id/btnTimeStop"
+            app:layout_constraintStart_toEndOf="@+id/btnDateStop"
             app:layout_constraintTop_toBottomOf="@+id/start_time"
             tools:targetApi="o" />
 
@@ -127,46 +128,48 @@
             app:layout_constraintGuide_begin="279dp" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btnDateStart"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
+            android:onClick="showDatePickerDialog"
             android:text="@string/button"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintBottom_toTopOf="@+id/btnDateStop"
             app:layout_constraintEnd_toStartOf="@+id/start_time"
             app:layout_constraintStart_toEndOf="@+id/start_date"
             app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnDateStop"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:onClick="showDatePickerDialog"
             android:text="@string/button"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/stop_time"
             app:layout_constraintStart_toEndOf="@+id/stop_date"
-            app:layout_constraintTop_toBottomOf="@+id/button1" />
+            app:layout_constraintTop_toBottomOf="@+id/btnDateStart" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnTimeStart"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="12dp"
             android:text="@string/button"
-            app:layout_constraintBottom_toTopOf="@+id/button4"
+            app:layout_constraintBottom_toTopOf="@+id/btnTimeStop"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toEndOf="@+id/start_time"
             app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btnTimeStop"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="12dp"
@@ -176,7 +179,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toEndOf="@+id/stop_time"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+            app:layout_constraintTop_toBottomOf="@+id/btnTimeStart" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
