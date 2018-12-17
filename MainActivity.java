@@ -6,17 +6,16 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-
-import com.example.bielczy.vmc_charts_java.db.DatePickerFragment;
+import com.example.bielczy.vmc_charts_java.db.DatePickerStartFragment;
+//import com.example.bielczy.vmc_charts_java.db.DatePickerStopFragment;
 import com.example.bielczy.vmc_charts_java.db.TemperatureFragment;
 import com.example.bielczy.vmc_charts_java.db.ExtractByDateFragment;
 import com.example.bielczy.vmc_charts_java.db.StartFragment;
-
+import com.example.bielczy.vmc_charts_java.db.TimePickerStartFragment;
+//import com.example.bielczy.vmc_charts_java.db.TimePickerStopFragmentFragment;
 
 
 public class MainActivity extends AppCompatActivity {
-
 
 
     @Override
@@ -31,13 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public void onTemperatureClick(View view) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.action_container, new TemperatureFragment())
                 .commit();
     }
-
 
     public void onRangeClick(View view) {
         getSupportFragmentManager().beginTransaction()
@@ -45,8 +42,26 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void showDatePickerDialog(View view) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+    public void showDateStartPickerDialog(View view) {
+        DialogFragment newFragment = new DatePickerStartFragment();
+        newFragment.show(getSupportFragmentManager(), "datePickerStart");
+
     }
+    public void showTimeStartPickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerStartFragment();
+        newFragment.show(getSupportFragmentManager(), "timePickerStart");
+    }
+    public void showDateStopPickerDialog(View view) {
+        DialogFragment newFragment = new DatePickerStartFragment();
+        newFragment.show(getSupportFragmentManager(), "datePickerStop");
+
+    }
+    public void showTimeStopPickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerStartFragment();
+        newFragment.show(getSupportFragmentManager(), "timePickerStop");
+    }
+
+
 }
+//TODO wyjaśnić dlaczego klasy Stop dla pickerów nie są używane
+//porównać deklaracje metod start i stop
