@@ -6,12 +6,15 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.bielczy.vmc_charts_java.db.DataPickerStopFragment;
 import com.example.bielczy.vmc_charts_java.db.DatePickerStartFragment;
 //import com.example.bielczy.vmc_charts_java.db.DatePickerStopFragment;
 import com.example.bielczy.vmc_charts_java.db.TemperatureFragment;
 import com.example.bielczy.vmc_charts_java.db.ExtractByDateFragment;
 import com.example.bielczy.vmc_charts_java.db.StartFragment;
 import com.example.bielczy.vmc_charts_java.db.TimePickerStartFragment;
+import com.example.bielczy.vmc_charts_java.db.TimePickerStopFragment;
 //import com.example.bielczy.vmc_charts_java.db.TimePickerStopFragmentFragment;
 
 
@@ -52,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "timePickerStart");
     }
     public void showDateStopPickerDialog(View view) {
-        DialogFragment newFragment = new DatePickerStartFragment();
+        DialogFragment newFragment = new DataPickerStopFragment();
         newFragment.show(getSupportFragmentManager(), "datePickerStop");
 
     }
     public void showTimeStopPickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerStartFragment();
+        DialogFragment newFragment = new TimePickerStopFragment();
         newFragment.show(getSupportFragmentManager(), "timePickerStop");
     }
 
