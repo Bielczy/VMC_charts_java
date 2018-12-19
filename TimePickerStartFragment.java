@@ -27,6 +27,8 @@ public class TimePickerStartFragment extends DialogFragment
 
     TextView start_time;
     Button btnTimeStart;
+    public onTimeStartSelected onTimeStartSelectedCallback;
+
     public TimePickerStartFragment() {
         // Required empty public constructor
     }
@@ -48,6 +50,13 @@ public class TimePickerStartFragment extends DialogFragment
         btnTimeStart = (Button) getActivity().findViewById(R.id.btnTimeStart);
 //
         start_time.setText(hour + " : " + minute);
+
+        if(onTimeStartSelectedCallback != null)
+            onTimeStartSelectedCallback.onSelected(view, hour, minute);
+    }
+
+    public interface onTimeStartSelected {
+        void onSelected(TimePicker view, int hour, int minute);
     }
 }
 

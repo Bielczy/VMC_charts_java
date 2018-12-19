@@ -2,18 +2,18 @@ package com.example.bielczy.vmc_charts_java;
 
 
 import android.content.pm.ActivityInfo;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import com.example.bielczy.vmc_charts_java.db.DataPickerStopFragment;
+import android.widget.TimePicker;
+
+import com.example.bielczy.vmc_charts_java.db.DatePickerStopFragment;
 import com.example.bielczy.vmc_charts_java.db.DatePickerStartFragment;
 import com.example.bielczy.vmc_charts_java.db.ExtractByDateFragment;
 import com.example.bielczy.vmc_charts_java.db.TimePickerStartFragment;
 import com.example.bielczy.vmc_charts_java.db.TimePickerStopFragment;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,45 +42,52 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-
-
-    public void onRangeClick(View view) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.LineChartTemperature, new ExtractByDateFragment())
-                .commit();
-    }
-
     public void showDateStartPickerDialog(View view) {
-        DatePickerStartFragment newFragment = new DatePickerStartFragment();
-        newFragment.onDateSelectedCallback = new DatePickerStartFragment.OnDateSelected() {
+        DatePickerStartFragment newFragmentDataStart = new DatePickerStartFragment();
+        newFragmentDataStart.onDateStartSelectedCallback = new DatePickerStartFragment.onDateStartSelected() {
             @Override
             public void onSelected(DatePicker view, int year, int month, int day) {
 
             }
         };
 
-        newFragment.show(getSupportFragmentManager(), "datePickerStart");
-
-
-
+        newFragmentDataStart.show(getSupportFragmentManager(), "datePickerStart");
     }
-    public void showTimeStartPickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerStartFragment();
-        newFragment.show(getSupportFragmentManager(), "timePickerStart");
-    }
+
     public void showDateStopPickerDialog(View view) {
-        DialogFragment newFragment = new DataPickerStopFragment();
-        newFragment.show(getSupportFragmentManager(), "datePickerStop");
+        DatePickerStopFragment newFragmentDataStop = new DatePickerStopFragment();
+        newFragmentDataStop.onDataStopSelectedCallback = new DatePickerStopFragment.onDateStopSelected(){
 
+            @Override
+            public void onSelected(DatePicker view, int year, int month, int day) {
+
+            }
+        };
+        newFragmentDataStop.show(getSupportFragmentManager(), "datePickerStop");
     }
+
+    public void showTimeStartPickerDialog(View v) {
+        TimePickerStartFragment newFragmentTimeStart = new TimePickerStartFragment();
+        newFragmentTimeStart.onTimeStartSelectedCallback = new TimePickerStartFragment.onTimeStartSelected(){
+
+            @Override
+            public void onSelected(TimePicker view, int hour, int minute) {
+
+            }
+        };
+        newFragmentTimeStart.show(getSupportFragmentManager(), "timePickerStart");
+    }
+
     public void showTimeStopPickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerStopFragment();
-        newFragment.show(getSupportFragmentManager(), "timePickerStop");
+        TimePickerStopFragment newFragmentTimeStop = new TimePickerStopFragment();
+        newFragmentTimeStop.onTimeStopSelectedCallback = new TimePickerStopFragment.onTimeStopSelected() {
+            @Override
+            public void onSelected(TimePicker view, int hour, int minute) {
+
+            }
+        };
+
+        newFragmentTimeStop.show(getSupportFragmentManager(), "timePickerStop");
     }
 
 

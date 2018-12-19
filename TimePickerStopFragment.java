@@ -27,6 +27,7 @@ public class TimePickerStopFragment extends DialogFragment
 
     TextView stop_time;
     Button btnTimeStop;
+    public onTimeStopSelected  onTimeStopSelectedCallback;
 
     public TimePickerStopFragment() {
         // Required empty public constructor
@@ -49,7 +50,11 @@ public class TimePickerStopFragment extends DialogFragment
 
         stop_time.setText(hour + " : " + minute);
 
-
+        if(onTimeStopSelectedCallback != null)
+            onTimeStopSelectedCallback.onSelected(view, hour, minute);
     }
 
+    public interface onTimeStopSelected{
+        void onSelected(TimePicker view, int hour, int minute);
+    }
 }

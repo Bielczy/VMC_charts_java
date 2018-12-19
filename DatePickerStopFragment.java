@@ -13,19 +13,20 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.bielczy.vmc_charts_java.R;
+
 import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DatePickerStartFragment extends DialogFragment
+public class DatePickerStopFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
-    Button btnDateStart;
-    TextView start_date;
-    public onDateStartSelected onDateStartSelectedCallback;
+    Button btnDateStop;
+    TextView stop_date;
+    public onDateStopSelected onDataStopSelectedCallback;
 
-    public DatePickerStartFragment() {
+    public DatePickerStopFragment() {
         // Required empty public constructor
     }
 
@@ -33,28 +34,30 @@ public class DatePickerStartFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-       final Calendar calendar;
-       calendar = Calendar.getInstance();
+        final Calendar calendar;
+        calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
-        return  new DatePickerDialog(getActivity(), this, year, month, day);
+        return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
 
-        start_date = (TextView) getActivity().findViewById(R.id.start_date);
-       btnDateStart = (Button)getActivity().findViewById(R.id.btnDateStart);
+        stop_date = (TextView) getActivity().findViewById(R.id.stop_date);
+        btnDateStop = (Button) getActivity().findViewById(R.id.btnDateStop);
 
-        start_date.setText(day + "-" + (month + 1) + "-" + year);
+        stop_date.setText(day + "-" + (month + 1) + "-" + year);
 
-        if(onDateStartSelectedCallback != null)
-            onDateStartSelectedCallback.onSelected(view, year, month, day);
+        if(onDataStopSelectedCallback != null)
+            onDataStopSelectedCallback.onSelected(view, year, month, day);
+
     }
-
-    public interface onDateStartSelected {
+    public interface onDateStopSelected {
         void onSelected(DatePicker view, int year, int month, int day);
     }
 }
+
+
