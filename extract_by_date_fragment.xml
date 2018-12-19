@@ -4,14 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/colorDateExtract"
+    android:id="@+id/extractByDateMainCOntiner"
+
+    >
 
 
     <!-- TODO: Update blank fragment layout -->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <TextView
             android:id="@+id/etykieta2"
@@ -53,9 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="277dp" />
+            app:layout_constraintGuide_begin="388dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/start_date"
             android:layout_width="70dp"
             android:layout_height="40dp"
@@ -64,7 +70,6 @@
             android:layout_marginBottom="12dp"
             android:autofillHints="@string/start_date"
             android:hint="@string/start_date"
-            android:inputType="date"
             android:text="@string/start_date"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/stop_date"
@@ -74,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline4"
             tools:targetApi="o" />
 
-        <EditText
+        <TextView
             android:id="@+id/stop_date"
             android:layout_width="70dp"
             android:layout_height="40dp"
@@ -83,7 +88,6 @@
             android:layout_marginBottom="16dp"
             android:autofillHints="@string/stop_date"
             android:hint="@string/stop_date"
-            android:inputType="date"
             android:text="@string/stop_date"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
@@ -92,7 +96,7 @@
             app:layout_constraintTop_toBottomOf="@+id/start_date"
             tools:targetApi="o" />
 
-        <EditText
+        <TextView
             android:id="@+id/start_time"
             android:layout_width="70dp"
             android:layout_height="40dp"
@@ -101,7 +105,6 @@
             android:layout_marginBottom="12dp"
             android:autofillHints="@string/start_time"
             android:hint="@string/start_time"
-            android:inputType="time"
             android:text="@string/start_time"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/stop_time"
@@ -110,7 +113,7 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline4"
             tools:targetApi="o" />
 
-        <EditText
+        <TextView
             android:id="@+id/stop_time"
             android:layout_width="70dp"
             android:layout_height="40dp"
@@ -119,7 +122,6 @@
             android:layout_marginBottom="16dp"
             android:autofillHints="@string/stop_time"
             android:hint="@string/stop_time"
-            android:inputType="time"
             android:text="@string/stop_time"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"

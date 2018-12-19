@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:id="@+id/current_data_stream_fragment">
+    tools:context=".db.TemperatureFragment"
+    android:id="@+id/current_data_stream_fragment"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/colorTemperatureChart">
 
 
     <android.support.constraint.ConstraintLayout
@@ -18,27 +21,12 @@
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="99dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/etykieta"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/btnRange"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnRange"
-            android:layout_width="82dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="5dp"
-            android:onClick="onRangeClick"
-            android:text="@string/btnRange"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/etykieta"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.constraint.Guideline
@@ -63,6 +51,7 @@
             android:layout_marginTop="11dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:checked="true"
             android:text="@string/cbTemperature"
             app:layout_constraintBottom_toTopOf="@+id/cbHumidity"
             app:layout_constraintEnd_toStartOf="@+id/cbFreezDuration"
@@ -77,6 +66,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="11dp"
+            android:checked="true"
             android:text="@string/cbFreezConsump"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +81,7 @@
             android:layout_marginTop="11dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
+            android:checked="true"
             android:text="@string/cbFreezDuration"
             app:layout_constraintBottom_toTopOf="@+id/cbFreezConsump"
             app:layout_constraintEnd_toEndOf="parent"
@@ -105,6 +96,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="11dp"
+            android:checked="true"
             android:text="@string/cbHumidity"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toStartOf="@+id/cbFreezConsump"
@@ -124,13 +116,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline5">
 
-            <TextView
-                android:id="@+id/tvInstruction"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
-                android:layout_gravity="center"
-                android:textSize="30sp"
-                tools:text="@string/tvInstruction" />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </FrameLayout>
 

@@ -23,7 +23,7 @@ public interface TemperatureLogDao {
     Single<List<TemperatureLog>> getLast(int limit);
 
     @Query("SELECT * FROM temperature_logs WHERE date BETWEEN :start AND :end")
-    Single<List<TemperatureLog>> getAll(String start, String end);
+    Single<List<TemperatureLog>> getByDate(String start, String end);
 
     @Insert
     void insertAll(TemperatureLog... logs);
@@ -39,4 +39,6 @@ public interface TemperatureLogDao {
         return Completable.fromRunnable(() -> insertAll(logs))
                 .subscribeOn(Schedulers.io());
     }
+
+   // void generateTemperatureLogs();
 }

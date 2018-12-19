@@ -11,7 +11,10 @@ import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.example.bielczy.vmc_charts_java.R;
+
 import java.util.Calendar;
 
 /**
@@ -21,16 +24,16 @@ public class DataPickerStopFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     Button btnDateStop;
-    EditText stop_date;
+    TextView stop_date;
 
 
     public DataPickerStopFragment() {
         // Required empty public constructor
     }
 
-        @NonNull
-        @Override
-        public Dialog onCreateDialog (@Nullable Bundle savedInstanceState){
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         final Calendar calendar;
         calendar = Calendar.getInstance();
@@ -41,10 +44,10 @@ public class DataPickerStopFragment extends DialogFragment
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
-        @Override
-        public void onDateSet (DatePicker view,int year, int month, int day){
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int day) {
 
-        stop_date = (EditText) getActivity().findViewById(R.id.stop_date);
+        stop_date = (TextView) getActivity().findViewById(R.id.stop_date);
         btnDateStop = (Button) getActivity().findViewById(R.id.btnDateStop);
 
         stop_date.setText(day + "-" + (month + 1) + "-" + year);

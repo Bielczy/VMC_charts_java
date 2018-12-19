@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.bielczy.vmc_charts_java.R;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 public class TimePickerStopFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
-    EditText stop_time;
+    TextView stop_time;
     Button btnTimeStop;
 
     public TimePickerStopFragment() {
@@ -43,8 +44,8 @@ public class TimePickerStopFragment extends DialogFragment
 
     public void onTimeSet(TimePicker view, int hour, int minute) {
 
-        stop_time = (EditText)getActivity().findViewById(R.id.stop_time);
-        btnTimeStop = (Button) getActivity().findViewById(R.id.btnTimeStop);
+       stop_time = (TextView) getActivity().findViewById(R.id.stop_time);
+       btnTimeStop = (Button) getActivity().findViewById(R.id.btnTimeStop);
 
         stop_time.setText(hour + " : " + minute);
 

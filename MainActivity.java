@@ -6,16 +6,14 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-
+import android.widget.Button;
+import android.widget.DatePicker;
 import com.example.bielczy.vmc_charts_java.db.DataPickerStopFragment;
 import com.example.bielczy.vmc_charts_java.db.DatePickerStartFragment;
-//import com.example.bielczy.vmc_charts_java.db.DatePickerStopFragment;
-import com.example.bielczy.vmc_charts_java.db.TemperatureFragment;
 import com.example.bielczy.vmc_charts_java.db.ExtractByDateFragment;
-import com.example.bielczy.vmc_charts_java.db.StartFragment;
 import com.example.bielczy.vmc_charts_java.db.TimePickerStartFragment;
 import com.example.bielczy.vmc_charts_java.db.TimePickerStopFragment;
-//import com.example.bielczy.vmc_charts_java.db.TimePickerStopFragmentFragment;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,17 +25,29 @@ public class MainActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.action_container, new StartFragment())
-                .commit();
+        Button showTemperatureButton = (Button)findViewById(R.id.btnTemperature);
+        showTemperatureButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.buttons_container, new ExtractByDateFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+
+        });
 
     }
 
-    public void onTemperatureClick(View view) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.action_container, new TemperatureFragment())
-                .commit();
-    }
+
+
+
+
+
+
 
     public void onRangeClick(View view) {
         getSupportFragmentManager().beginTransaction()
@@ -46,8 +56,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showDateStartPickerDialog(View view) {
-        DialogFragment newFragment = new DatePickerStartFragment();
+        DatePickerStartFragment newFragment = new DatePickerStartFragment();
+        newFragment.onDateSelectedCallback = new DatePickerStartFragment.OnDateSelected() {
+            @Override
+            public void onSelected(DatePicker view, int year, int month, int day) {
+
+            }
+        };
+
         newFragment.show(getSupportFragmentManager(), "datePickerStart");
+
+
 
     }
     public void showTimeStartPickerDialog(View v) {
@@ -66,5 +85,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-//TODO wyjaśnić dlaczego klasy Stop dla pickerów nie są używane
-//porównać deklaracje metod start i stop

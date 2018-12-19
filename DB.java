@@ -1,13 +1,14 @@
 package com.example.bielczy.vmc_charts_java.db;
 
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
-
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -35,7 +36,10 @@ public abstract class DB extends RoomDatabase {
             synchronized (DB.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            DB.class, "Logs_database")
+                            DB.class, "Logs_databasex2")
+                            .fallbackToDestructiveMigration()
+                            .addCallback(DataBaseCallback)
+                            .allowMainThreadQueries()
                             .build();
                 }
             }
@@ -43,31 +47,57 @@ public abstract class DB extends RoomDatabase {
         return INSTANCE;
     }
 
-    void generateTemperatureLogs(){
-        List<TemperatureLog> logs = new ArrayList<>();
+    private static RoomDatabase.Callback DataBaseCallback = new RoomDatabase.Callback() {
 
-        long baseTimeMs = new Date(2018, 11,21, 10,11,0).getTime();
-
-        int dateStep = 1000 * 60 * 5;
-
-        for(int i = 0; i < 100; i++){
-            TemperatureLog log = new TemperatureLog();
-
-            log.setHumidity(new Random().nextFloat() % 100);
-            log.setTemperature((new Random().nextFloat() % 100) - 20);
-
-            baseTimeMs += dateStep;
-            Date nextDate = new Date(baseTimeMs);
-            log.setDate(DateFormatter.toString(nextDate));
-
-            logs.add(log);
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbAsync(INSTANCE).execute();
         }
 
-        temperatureLogs().insertAll(logs);
+    };
+
+    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+
+        private final TemperatureLogDao temperatureLogDao;
+
+        PopulateDbAsync(DB db) {
+            temperatureLogDao = db.temperatureLogs();
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            //temperatureLogDao.generateTemperatureLogs();
+            generateTemperatureLogs();
+            return null;
+        }
+
+        void generateTemperatureLogs() {
+            List<TemperatureLog> logs = new ArrayList<>();
+
+            long baseTimeMs = new Date(2018, 11, 21, 10, 11, 0).getTime();
+
+            int dateStep = 1000 * 60 * 5;
+
+            for (int i = 0; i < 100; i++) {
+                TemperatureLog log = new TemperatureLog();
+
+                log.setHumidity(new Random().nextFloat() % 100);
+                log.setTemperature((new Random().nextFloat() % 100) - 20);
+
+                baseTimeMs += dateStep;
+                Date nextDate = new Date(baseTimeMs);
+                log.setDate(DateFormatter.toString(nextDate));
+
+                logs.add(log);
+            }
+
+            temperatureLogDao.insertAll(logs);
+        }
+
+
     }
-    //tutaj da sie zrobic override na metode, ktora uruchamia sie raz po utworzeniu bazy danych
-
-   // tutorial na   https://android.jlelse.eu/pre-populate-room-database-6920f9acc870
-
 }
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.bielczy.vmc_charts_java.R;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 public class TimePickerStartFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
-    EditText start_time;
+    TextView start_time;
     Button btnTimeStart;
     public TimePickerStartFragment() {
         // Required empty public constructor
@@ -43,12 +44,10 @@ public class TimePickerStartFragment extends DialogFragment
 
     public void onTimeSet(TimePicker view, int hour, int minute) {
 
-        start_time = (EditText)getActivity().findViewById(R.id.start_time);
+        start_time = (TextView) getActivity().findViewById(R.id.start_time);
         btnTimeStart = (Button) getActivity().findViewById(R.id.btnTimeStart);
-
+//
         start_time.setText(hour + " : " + minute);
-
-
     }
 }
 

@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.example.bielczy.vmc_charts_java.R;
 import java.util.Calendar;
 
@@ -21,8 +23,8 @@ public class DatePickerStartFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     Button btnDateStart;
-    EditText start_date;
-
+    TextView start_date;
+    public OnDateSelected onDateSelectedCallback;
 
     public DatePickerStartFragment() {
         // Required empty public constructor
@@ -39,15 +41,23 @@ public class DatePickerStartFragment extends DialogFragment
         int year = calendar.get(Calendar.YEAR);
 
         return  new DatePickerDialog(getActivity(), this, year, month, day);
-        }
+    }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
 
-        start_date = (EditText)getActivity().findViewById(R.id.start_date);
-        btnDateStart = (Button)getActivity().findViewById(R.id.btnDateStart);
+        start_date = (TextView) getActivity().findViewById(R.id.start_date);
+       btnDateStart = (Button)getActivity().findViewById(R.id.btnDateStart);
 
         start_date.setText(day + "-" + (month + 1) + "-" + year);
 
+        if(onDateSelectedCallback != null)
+            onDateSelectedCallback.onSelected(view, year, month, day);
+    }
+
+
+
+    public interface OnDateSelected{
+        void onSelected(DatePicker view, int year, int month, int day);
     }
 }
