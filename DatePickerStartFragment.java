@@ -23,7 +23,7 @@ public class DatePickerStartFragment extends DialogFragment
 
     Button btnDateStart;
     TextView start_date;
-    public onDateStartSelected onDateStartSelectedCallback;
+    public OnDateStartSelected onDateStartSelectedCallback;
 
     public DatePickerStartFragment() {
         // Required empty public constructor
@@ -46,15 +46,16 @@ public class DatePickerStartFragment extends DialogFragment
     public void onDateSet(DatePicker view, int year, int month, int day) {
 
         start_date = (TextView) getActivity().findViewById(R.id.start_date);
-       btnDateStart = (Button)getActivity().findViewById(R.id.btnDateStart);
+        btnDateStart = (Button)getActivity().findViewById(R.id.btnDateStart);
 
-        start_date.setText(day + "-" + (month + 1) + "-" + year);
+       start_date.setText(String.format("%02d", day) + "-" + String.format("%02d", month + 1) + "-" + year);
 
         if(onDateStartSelectedCallback != null)
             onDateStartSelectedCallback.onSelected(view, year, month, day);
     }
 
-    public interface onDateStartSelected {
+    public interface OnDateStartSelected {
+
         void onSelected(DatePicker view, int year, int month, int day);
     }
 }

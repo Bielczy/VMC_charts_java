@@ -22,6 +22,9 @@ public interface TemperatureLogDao {
     @Query("SELECT * FROM temperature_logs ORDER BY uid DESC LIMIT :limit")
     Single<List<TemperatureLog>> getLast(int limit);
 
+    /*@Query("SELECT * FROM temperature_logs WHERE date BETWEEN '2018-11-21' AND '2018-11-22'")
+    Single<List<TemperatureLog>> getByDate();*/
+
     @Query("SELECT * FROM temperature_logs WHERE date BETWEEN :start AND :end")
     Single<List<TemperatureLog>> getByDate(String start, String end);
 

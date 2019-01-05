@@ -48,7 +48,7 @@ public class TimePickerStopFragment extends DialogFragment
        stop_time = (TextView) getActivity().findViewById(R.id.stop_time);
        btnTimeStop = (Button) getActivity().findViewById(R.id.btnTimeStop);
 
-        stop_time.setText(hour + " : " + minute);
+        stop_time.setText(String.format("%02d", hour )+ " : " + String.format("%02d", minute ));
 
         if(onTimeStopSelectedCallback != null)
             onTimeStopSelectedCallback.onSelected(view, hour, minute);

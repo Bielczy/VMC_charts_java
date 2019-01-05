@@ -23,6 +23,7 @@ public class ViewModelTemperature extends AndroidViewModel {
     }
 
     Single<List<TemperatureLog>> getAll() {
+
         return mAllTemperatureLogs;
     }
 

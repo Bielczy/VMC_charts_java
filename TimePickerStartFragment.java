@@ -49,7 +49,7 @@ public class TimePickerStartFragment extends DialogFragment
         start_time = (TextView) getActivity().findViewById(R.id.start_time);
         btnTimeStart = (Button) getActivity().findViewById(R.id.btnTimeStart);
 //
-        start_time.setText(hour + " : " + minute);
+        start_time.setText(String.format("%02d", hour )+ " : " + String.format("%02d", minute ));
 
         if(onTimeStartSelectedCallback != null)
             onTimeStartSelectedCallback.onSelected(view, hour, minute);

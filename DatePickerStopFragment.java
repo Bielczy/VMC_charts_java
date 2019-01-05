@@ -24,7 +24,7 @@ public class DatePickerStopFragment extends DialogFragment
 
     Button btnDateStop;
     TextView stop_date;
-    public onDateStopSelected onDataStopSelectedCallback;
+    public OnDateStopSelected onDataStopSelectedCallback;
 
     public DatePickerStopFragment() {
         // Required empty public constructor
@@ -49,13 +49,13 @@ public class DatePickerStopFragment extends DialogFragment
         stop_date = (TextView) getActivity().findViewById(R.id.stop_date);
         btnDateStop = (Button) getActivity().findViewById(R.id.btnDateStop);
 
-        stop_date.setText(day + "-" + (month + 1) + "-" + year);
+        stop_date.setText(String.format("%02d", day) + "-" + String.format("%02d", month + 1) + "-" + year);
 
         if(onDataStopSelectedCallback != null)
             onDataStopSelectedCallback.onSelected(view, year, month, day);
 
     }
-    public interface onDateStopSelected {
+    public interface OnDateStopSelected {
         void onSelected(DatePicker view, int year, int month, int day);
     }
 }

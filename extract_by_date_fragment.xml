@@ -6,18 +6,17 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/colorDateExtract"
-    android:id="@+id/extractByDateMainCOntiner"
-
-    >
+    android:id="@+id/extractByDateMainContiner"
+    android:background="@color/colorDateExtract">
 
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
         <TextView
             android:id="@+id/etykieta2"
@@ -76,8 +75,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btnDateStart"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline4"
-            tools:targetApi="o" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
         <TextView
             android:id="@+id/stop_date"
@@ -93,8 +91,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/btnDateStop"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_date"
-            tools:targetApi="o" />
+            app:layout_constraintTop_toBottomOf="@+id/start_date" />
 
         <TextView
             android:id="@+id/start_time"
@@ -110,8 +107,7 @@
             app:layout_constraintBottom_toTopOf="@+id/stop_time"
             app:layout_constraintEnd_toStartOf="@+id/btnTimeStart"
             app:layout_constraintStart_toEndOf="@+id/btnDateStart"
-            app:layout_constraintTop_toBottomOf="@+id/guideline4"
-            tools:targetApi="o" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
         <TextView
             android:id="@+id/stop_time"
@@ -127,8 +123,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/btnTimeStop"
             app:layout_constraintStart_toEndOf="@+id/btnDateStop"
-            app:layout_constraintTop_toBottomOf="@+id/start_time"
-            tools:targetApi="o" />
+            app:layout_constraintTop_toBottomOf="@+id/start_time" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -144,7 +139,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
-            android:onClick="showDateStartPickerDialog"
             android:text="@string/button"
             app:layout_constraintBottom_toTopOf="@+id/btnDateStop"
             app:layout_constraintEnd_toStartOf="@+id/start_time"
@@ -158,7 +152,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:onClick="showDateStopPickerDialog"
             android:text="@string/button"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/stop_time"
@@ -172,7 +165,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="12dp"
-            android:onClick="showTimeStartPickerDialog"
             android:text="@string/button"
             app:layout_constraintBottom_toTopOf="@+id/btnTimeStop"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -186,7 +178,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-            android:onClick="showTimeStopPickerDialog"
             android:text="@string/button"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -194,4 +185,5 @@
             app:layout_constraintTop_toBottomOf="@+id/btnTimeStart" />
 
     </android.support.constraint.ConstraintLayout>
+
 </FrameLayout>
