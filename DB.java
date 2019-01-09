@@ -13,6 +13,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import io.reactivex.Scheduler;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 
 @Database(
         entities = {

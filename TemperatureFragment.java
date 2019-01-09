@@ -96,10 +96,7 @@ public class TemperatureFragment extends Fragment {
                     public void accept(List<TemperatureLog> dane) throws Exception {
                        int i =0;
                        i = 100;
-
-                        //range.start_date;
-
-                        //DateFormatter.toString()
+                       
 
                         List<Entry> entries = new ArrayList<>();
                         for (TemperatureLog data : dane) {
@@ -140,6 +137,17 @@ public class TemperatureFragment extends Fragment {
             end.setYear(year);
             end.setMonth(month);
             end.setDate(date);
+        }
+
+        public void setStartTime(int hrs, int min){
+            start.setHours(hrs);
+            start.setMinutes(min);
+
+        }
+
+        public void setStopTime(int hrs, int min){
+            end.setHours(hrs);
+            end.setMinutes(min);
         }
 
     }

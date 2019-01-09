@@ -4,6 +4,11 @@ package com.example.bielczy.vmc_charts_java.db;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.widget.DatePicker;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 //import com.foodrobotics.vmc.modules.Logger;
 
@@ -38,7 +43,6 @@ public class TemperatureLog {
 
     @ColumnInfo(name = "date")
     protected String date;
-
 
 
     public TemperatureLog() {
@@ -157,4 +161,6 @@ public class TemperatureLog {
     public String getDate() {
         return date;
     }
+
+
 }

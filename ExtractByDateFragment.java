@@ -84,7 +84,7 @@ import java.util.function.Function;
             }
         });
 
-     /*   btnTimeStart = view.findViewById(R.id.btnTimeStart);
+       btnTimeStart = view.findViewById(R.id.btnTimeStart);
         btnTimeStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,19 +99,12 @@ import java.util.function.Function;
                 showTimeStopPickerDialog();
             }
         });
-*/
+
 
 
         view.findViewById(R.id.btnShow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                //daty powyciagac
-              /*  TemperatureFragment temperatureFragment = new TemperatureFragment();
-
-                temperatureFragment.start = start_date.getText().toString();
-                temperatureFragment.end = stop_date.getText().toString();*/
 
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
@@ -145,13 +138,13 @@ import java.util.function.Function;
         newFragmentDataStop.show(getActivity().getSupportFragmentManager(), "datePickerStop");
     }
 
-   /* public void showTimeStartPickerDialog() {
+    public void showTimeStartPickerDialog() {
         TimePickerStartFragment newFragmentTimeStart = new TimePickerStartFragment();
         newFragmentTimeStart.onTimeStartSelectedCallback = new TimePickerStartFragment.onTimeStartSelected(){
 
             @Override
-            public void onSelected(TimePicker view, int hour, int minute) {
-                range.setStartTime(hour, minute);
+            public void onSelected(TimePicker view, int hrs, int min) {
+                range.setStartTime(hrs, min);
             }
         };
         newFragmentTimeStart.show(getActivity().getSupportFragmentManager(), "timePickerStart");
@@ -161,11 +154,11 @@ import java.util.function.Function;
         TimePickerStopFragment newFragmentTimeStop = new TimePickerStopFragment();
         newFragmentTimeStop.onTimeStopSelectedCallback = new TimePickerStopFragment.onTimeStopSelected() {
             @Override
-            public void onSelected(TimePicker view, int hour, int minute) {
-                range.setStopTime(hour, minute);
+            public void onSelected(TimePicker view, int hrs, int min) {
+                range.setStopTime(hrs, min);
             }
         };
         newFragmentTimeStop.show(getActivity().getSupportFragmentManager(), "timePickerStop");
     }
-*/
+
 }
