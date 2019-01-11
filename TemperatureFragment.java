@@ -9,10 +9,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.example.bielczy.vmc_charts_java.R;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -32,27 +38,22 @@ import io.reactivex.schedulers.Schedulers;
  * A simple {@link Fragment} subclass.
  */
 public class TemperatureFragment extends Fragment {
- /*  // List<String> bla = new ArrayList<>();
-//--------------------------------------------------------------------------------------------
-    String start, end;
-    Single<List<TemperatureLog>> temperatureLogs;
-    TextView start_date, stop_date;
 
-    public void setTemperatureLogs(Single<List<TemperatureLog>> temperatureLogs) {
-        this.temperatureLogs = temperatureLogs;
-
-        start = start_date.getText().toString();
-        end = stop_date.getText().toString();
-    }
-
-//-------------------------------------------------------------------------------------------------------*/
-
+    CheckBox cbTemperature;
+    CheckBox cbHumidity;
 
     DateRange range;
 
     LineChart lineChart;
+    BarChart barChart;
+
     String[] labels = new String[] {"Temperature", "Humidity", "Freez. Duration", "Freez. Consumption"};
     private Object log;
+
+   /* boolean temperatureChecked;
+    boolean humidityChecked;
+    boolean durationChecked;
+    boolean consumptionChecked;*/
 
     public static TemperatureFragment NewInstance(DateRange range){
         TemperatureFragment fr = new TemperatureFragment();
@@ -66,7 +67,7 @@ public class TemperatureFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.tempeature_fragment, container, false);
@@ -76,10 +77,36 @@ public class TemperatureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        lineChart = (LineChart) getActivity().findViewById(R.id.chart);
+        cbHumidity = (CheckBox)view.findViewById(R.id.cbHumidity);
+        cbTemperature = (CheckBox)view.findViewById(R.id.cbTemperature);
+        lineChart = (LineChart) view.findViewById(R.id.chart);
+        barChart = (BarChart) view.findViewById(R.id.barChart);
         setRetainInstance(true);
+
+        cbTemperature.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked)
+                    return;
+               // temperatureChecked = isChecked;
+               // drawCharts(temperatureChecked, humidityChecked, durationChecked, consumptionChecked);
+            }
+        });
+
+        cbHumidity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    return;
+            }
+        });
+
     }
+
+   //private void drawCharts(boolean temperatureChecked, boolean humidityChecked, boolean durationChecked, boolean consumptionChecked) {
+
+   // }
 
     @Override
     public void onStart() {
@@ -92,29 +119,92 @@ public class TemperatureFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<TemperatureLog>>() {
+
+                 
                     @Override
                     public void accept(List<TemperatureLog> dane) throws Exception {
                        int i =0;
                        i = 100;
-                       
 
-                        List<Entry> entries = new ArrayList<>();
-                        for (TemperatureLog data : dane) {
-                            entries.add(new Entry(data.uid, data.getTemperature()));
-                        }
+                if((cbTemperature.isChecked()) && (!cbHumidity.isChecked())){
 
-                        LineDataSet dataSet = new LineDataSet(entries, "℃");
-                        dataSet.setColors(ColorTemplate.getHoloBlue());
-                        dataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                    barChart.setVisibility(View.INVISIBLE);
+                    lineChart.setVisibility(View.VISIBLE);
 
-                        Legend legend = lineChart.getLegend();
-                        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-                        legend.setTextColor(Color.BLACK);
-                        legend.setExtra(ColorTemplate.MATERIAL_COLORS, labels);
+                    List<Entry> temperatureEntries = new ArrayList<>();
+                    for (TemperatureLog data : dane) {
+                        temperatureEntries.add(new Entry(data.uid, data.getTemperature()));
+                    }
 
-                        LineData lineData = new LineData(dataSet);
-                        lineChart.setData(lineData);
-                        lineChart.invalidate();
+                    LineDataSet temperatureDataSet = new LineDataSet(temperatureEntries, "℃");
+                    temperatureDataSet.setColors(ColorTemplate.getHoloBlue());
+                    temperatureDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+
+                    Legend legend = lineChart.getLegend();
+                    legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+                    legend.setTextColor(Color.BLACK);
+                    legend.setExtra(ColorTemplate.MATERIAL_COLORS, labels);
+
+                    LineData lineData = new LineData(temperatureDataSet);
+                    lineChart.setData(lineData);
+                    lineChart.invalidate();
+                }
+
+                else if ((cbHumidity.isChecked()) && (!cbTemperature.isChecked())){
+
+                    barChart.setVisibility(View.INVISIBLE);
+                    lineChart.setVisibility(View.VISIBLE);
+
+                    List<Entry> humidityEntries = new ArrayList<>();
+                    for (TemperatureLog data : dane) {
+                        humidityEntries.add(new Entry(data.uid, data.getHumidity()));
+                    }
+
+                    LineDataSet humidityDataSet = new LineDataSet(humidityEntries, "℃");
+                    humidityDataSet.setColors(ColorTemplate.getHoloBlue());
+                    humidityDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+
+                    Legend legend = lineChart.getLegend();
+                    legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+                    legend.setTextColor(Color.BLACK);
+                    legend.setExtra(ColorTemplate.MATERIAL_COLORS, labels);
+
+                    LineData lineData = new LineData(humidityDataSet);
+                    lineChart.setData(lineData);
+                    lineChart.invalidate();
+
+                }
+
+                else if((cbTemperature.isChecked()) && (!cbHumidity.isChecked())){
+
+                    lineChart.setVisibility(View.INVISIBLE);
+                    barChart.setVisibility(View.VISIBLE);
+
+                   /* YourData[] group1 = ...;
+                    YourData[] group2 = ...;*/
+
+                    List<BarEntry> temperatureEntries = new ArrayList<>();
+                    List<BarEntry> humidityEntries = new ArrayList<>();
+
+
+                    for(TemperatureLog data : dane) {
+                        temperatureEntries.add(new BarEntry(data.uid, data.getTemperature()));
+                        humidityEntries.add(new BarEntry(data.uid, data.getHumidity()));
+                    }
+
+                    BarDataSet temperatureDataSet = new BarDataSet(temperatureEntries, "Temp.");
+                    BarDataSet humidityDataSet = new BarDataSet(humidityEntries, "Humidity");
+
+                    float groupSpace = 0.06f;
+                    float barSpace = 0.02f;
+                    float barWidth = 0.45f;
+
+                    BarData data = new BarData(temperatureDataSet, humidityDataSet);
+                    data.setBarWidth(barWidth); // set the width of each bar
+                    barChart.setData(data);
+                    barChart.groupBars(1980f, groupSpace, barSpace); // perform the "explicit" grouping
+                    barChart.invalidate();
+                }
                     }
                 });
 
@@ -127,25 +217,25 @@ public class TemperatureFragment extends Fragment {
         public Date end = new Date();
 
 
-        public void setStartDate(int year, int month, int date) {
+        void setStartDate(int year, int month, int date) {
             start.setYear(year);
             start.setMonth(month);
             start.setDate(date);
         }
 
-        public void setStopDate(int year, int month, int date) {
+        void setStopDate(int year, int month, int date) {
             end.setYear(year);
             end.setMonth(month);
             end.setDate(date);
         }
 
-        public void setStartTime(int hrs, int min){
+        void setStartTime(int hrs, int min){
             start.setHours(hrs);
             start.setMinutes(min);
 
         }
 
-        public void setStopTime(int hrs, int min){
+        void setStopTime(int hrs, int min){
             end.setHours(hrs);
             end.setMinutes(min);
         }
