@@ -9,20 +9,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.example.bielczy.vmc_charts_java.R;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,23 +39,23 @@ public class TemperatureFragment extends Fragment {
 
     CheckBox cbTemperature;
     CheckBox cbHumidity;
-
-    DateRange range;
-
+    CheckBox cbFreezDuration;
+    CheckBox cbFreezConsump;
+    Button btnChartTemperature;
+    DateRangeTemperature rangeTemperature;
     LineChart lineChart;
-    BarChart barChart;
 
-    String[] labels = new String[] {"Temperature", "Humidity", "Freez. Duration", "Freez. Consumption"};
+
     private Object log;
 
-   /* boolean temperatureChecked;
+    boolean temperatureChecked;
     boolean humidityChecked;
     boolean durationChecked;
-    boolean consumptionChecked;*/
+    boolean consumptionChecked;
 
-    public static TemperatureFragment NewInstance(DateRange range){
+    public static TemperatureFragment NewInstance(DateRangeTemperature range){
         TemperatureFragment fr = new TemperatureFragment();
-        fr.range = range;
+        fr.rangeTemperature = range;
         return fr;
     }
 
@@ -77,145 +75,362 @@ public class TemperatureFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cbHumidity = (CheckBox)view.findViewById(R.id.cbHumidity);
-        cbTemperature = (CheckBox)view.findViewById(R.id.cbTemperature);
+        btnChartTemperature = (Button) view.findViewById(R.id.btnChartTemperature);
+
+        cbHumidity = (CheckBox) view.findViewById(R.id.cbHumidity);
+        cbTemperature = (CheckBox) view.findViewById(R.id.cbTemperature);
+        cbFreezDuration = (CheckBox) view.findViewById(R.id.cbFreezDuration);
+        cbFreezConsump = (CheckBox) view.findViewById(R.id.cbFreezConsump);
         lineChart = (LineChart) view.findViewById(R.id.chart);
-        barChart = (BarChart) view.findViewById(R.id.barChart);
         setRetainInstance(true);
 
-        cbTemperature.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked)
-                    return;
-               // temperatureChecked = isChecked;
-               // drawCharts(temperatureChecked, humidityChecked, durationChecked, consumptionChecked);
-            }
-        });
-
-        cbHumidity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    return;
-            }
-        });
 
     }
 
-   //private void drawCharts(boolean temperatureChecked, boolean humidityChecked, boolean durationChecked, boolean consumptionChecked) {
-
-   // }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        String startFormated = DateFormatter.toString(range.start);
-        String stopFormated = DateFormatter.toString(range.end);
+        String startFormated = DateFormatter.toString(rangeTemperature.start);
+        String stopFormated = DateFormatter.toString(rangeTemperature.end);
 
         Disposable d = DB.getDatabase(getContext()).temperatureLogs().getByDate(startFormated, stopFormated)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<TemperatureLog>>() {
 
-                 
+
                     @Override
-                    public void accept(List<TemperatureLog> dane) throws Exception {
-                       int i =0;
-                       i = 100;
+                    public void accept(final List<TemperatureLog> dane) throws Exception {
 
-                if((cbTemperature.isChecked()) && (!cbHumidity.isChecked())){
+                      /*  btnChartTemperature.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                drawCharts(dane);
+                            }
+                        });*/
+                        cbTemperature.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                temperatureChecked = isChecked;
+                                drawCharts(dane);
+                            }
+                        });
 
-                    barChart.setVisibility(View.INVISIBLE);
-                    lineChart.setVisibility(View.VISIBLE);
+                        cbHumidity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                humidityChecked = isChecked;
+                                drawCharts(dane);
+                            }
+                        });
 
-                    List<Entry> temperatureEntries = new ArrayList<>();
-                    for (TemperatureLog data : dane) {
-                        temperatureEntries.add(new Entry(data.uid, data.getTemperature()));
+                        cbFreezDuration.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                durationChecked = isChecked;
+                                drawCharts(dane);
+                            }
+                        });
+                        cbFreezConsump.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                consumptionChecked = isChecked;
+                                drawCharts(dane);
+                            }
+                        });
+
                     }
 
-                    LineDataSet temperatureDataSet = new LineDataSet(temperatureEntries, "℃");
-                    temperatureDataSet.setColors(ColorTemplate.getHoloBlue());
-                    temperatureDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                    private void drawCharts(final List<TemperatureLog> dane) {
 
-                    Legend legend = lineChart.getLegend();
-                    legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-                    legend.setTextColor(Color.BLACK);
-                    legend.setExtra(ColorTemplate.MATERIAL_COLORS, labels);
+                        boolean temperatureChecked = cbTemperature.isChecked();
+                        boolean humidityChecked = cbHumidity.isChecked();
+                        boolean freezDurationChecked = cbFreezDuration.isChecked();
+                        boolean consumptionChecked = cbFreezConsump.isChecked();
 
-                    LineData lineData = new LineData(temperatureDataSet);
-                    lineChart.setData(lineData);
-                    lineChart.invalidate();
-                }
+                        lineChart.setVisibility(View.VISIBLE);
 
-                else if ((cbHumidity.isChecked()) && (!cbTemperature.isChecked())){
+                        List<Entry> temperatureEntries = new ArrayList<>();
+                        for (TemperatureLog data : dane) {
+                            temperatureEntries.add(new Entry(data.uid, data.getTemperature()));
+                        }
 
-                    barChart.setVisibility(View.INVISIBLE);
-                    lineChart.setVisibility(View.VISIBLE);
+                        List<Entry> humidityEntries = new ArrayList<>();
+                        for (TemperatureLog data : dane) {
+                            humidityEntries.add(new Entry(data.uid, data.getHumidity()));
+                        }
 
-                    List<Entry> humidityEntries = new ArrayList<>();
-                    for (TemperatureLog data : dane) {
-                        humidityEntries.add(new Entry(data.uid, data.getHumidity()));
+                        List<Entry> freezDurationEntries = new ArrayList<>();
+                        for (TemperatureLog data : dane) {
+                            freezDurationEntries.add(new Entry(data.uid, data.getFreezingDurationS()));
+                        }
+
+                        List<Entry> freezConsumptionEntries = new ArrayList<>();
+                        for (TemperatureLog data : dane) {
+                            freezConsumptionEntries.add(new Entry(data.uid, data.getFreezingCurrentConsumption()));
+                        }
+
+                        LineDataSet temperatureDataSet = new LineDataSet(temperatureEntries, "℃");
+                        temperatureDataSet.setColors(new int []{R.color.colorTemperature}, getContext());
+                        temperatureDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+                        temperatureDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                        temperatureDataSet.setDrawCircles(false);
+
+                        LineDataSet humidityDataSet = new LineDataSet(humidityEntries, "% hum.");
+                        humidityDataSet.setColors(new int []{R.color.colorHumidity}, getContext());
+                        humidityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+                        humidityDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                        humidityDataSet.setDrawCircles(false);
+
+                        LineDataSet freezDurationDataSet = new LineDataSet(freezDurationEntries, "Freezing [s]");
+                        freezDurationDataSet.setColors(new int[]{R.color.colorFreezingDuration}, getContext());
+                        freezDurationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+                        freezDurationDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                        freezDurationDataSet.setDrawCircles(false);
+
+                        LineDataSet freezConsumptionDataSet = new LineDataSet(freezConsumptionEntries, "Freezing [s]");
+                        freezConsumptionDataSet.setColors(new int[]{R.color.colorFreezingConsumption}, getContext());
+                        freezConsumptionDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+                        freezConsumptionDataSet.setValueTextColor(Color.parseColor("#ffffff"));
+                        freezConsumptionDataSet.setDrawCircles(false);
+
+                        Legend legend = lineChart.getLegend();
+                        legend.setEnabled(true);
+                        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+                        legend.setTextColor(Color.BLACK);
+
+                        if (!temperatureChecked && !humidityChecked && !freezDurationChecked && !consumptionChecked){
+
+                            lineChart.setVisibility(View.INVISIBLE);
+                        }
+
+// only Temperature
+
+                       if (temperatureChecked && !humidityChecked && !freezDurationChecked && !consumptionChecked){
+
+                           ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                           dataSets.add(temperatureDataSet);
+
+                           LineData lineData = new LineData(dataSets);
+                           lineChart.setData(lineData);
+                           lineChart.getDescription().setText("Temperature");
+                           lineChart.invalidate();
+                       }
+//only Humidity
+
+                        if (!temperatureChecked && humidityChecked && !freezDurationChecked && !consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(humidityDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Huminidity");
+                            lineChart.invalidate();
+                        }
+
+// Temperature + Humidity
+
+                        if (temperatureChecked && humidityChecked && !freezDurationChecked && !consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(temperatureDataSet);
+                            dataSets.add(humidityDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Temperature & Huminidity");
+                            lineChart.invalidate();
+                        }
+
+// only FreezingDuration
+
+                        if (!temperatureChecked && !humidityChecked && freezDurationChecked && !consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(freezDurationDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Freezing");
+                            lineChart.invalidate();
+
+                        }
+
+// Temperature + FreezingDuration
+
+                        if (temperatureChecked && !humidityChecked && freezDurationChecked && !consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(temperatureDataSet);
+                            dataSets.add(freezDurationDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Temperature & Freezing");
+                            lineChart.invalidate();
+
+                        }
+
+// Humidity + FreezingDuration
+
+                        if (!temperatureChecked && humidityChecked && freezDurationChecked && !consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(humidityDataSet);
+                            dataSets.add(freezDurationDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Humidity & Freezing");
+                            lineChart.invalidate();
+                        }
+
+// only FreezingConsumption
+
+                        if (!temperatureChecked && !humidityChecked && !freezDurationChecked && consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(freezConsumptionDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Freezing Cons.");
+                            lineChart.invalidate();
+
+                        }
+
+// Temperature + FreezingConsumption
+
+                        if (temperatureChecked && !humidityChecked && !freezDurationChecked && consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(temperatureDataSet);
+                            dataSets.add(freezConsumptionDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Temperature & Freezing Cons.");
+                            lineChart.invalidate();
+                        }
+
+// Humidity + FreezingConsumption
+
+                        if (!temperatureChecked && humidityChecked && !freezDurationChecked && consumptionChecked) {
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(humidityDataSet);
+                            dataSets.add(freezConsumptionDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Humidity & Freezing Cons.");
+                            lineChart.invalidate();
+                        }
+
+// FreezingDuration + FreezingConsumption
+
+                        if (!temperatureChecked && !humidityChecked && freezDurationChecked && consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(freezDurationDataSet);
+                            dataSets.add(freezConsumptionDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Freezing & Freezing Cons.");
+                            lineChart.invalidate();
+
+                        }
+
+// Temperature + Humidity + FreezingDuration
+
+                        if (temperatureChecked && humidityChecked && freezDurationChecked && !consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(temperatureDataSet);
+                            dataSets.add(humidityDataSet);
+                            dataSets.add(freezDurationDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Temperature & Humidity & Freez.");
+                            lineChart.invalidate();
+                        }
+
+ // Temperature + Humidity + FreezingConsumption
+
+                        if (temperatureChecked && humidityChecked && !freezDurationChecked && consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(temperatureDataSet);
+                            dataSets.add(humidityDataSet);
+                            dataSets.add(freezConsumptionDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Temperature & Humidity & Freezing Cons.");
+                            lineChart.invalidate();
+                        }
+
+// Temperature + FreezingDuration + FreezingConsumption
+
+                        if (temperatureChecked && !humidityChecked && freezDurationChecked && consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(temperatureDataSet);
+                            dataSets.add(freezDurationDataSet);
+                            dataSets.add(freezConsumptionDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Temperature & Freez. & Freezing Cons.");
+                            lineChart.invalidate();
+                        }
+
+// Humidity + FreezingDuration + FreezingConsumption
+
+                        if (!temperatureChecked && humidityChecked && freezDurationChecked && consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(humidityDataSet);
+                            dataSets.add(freezDurationDataSet);
+                            dataSets.add(freezConsumptionDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Humidity & Freez. & Freezing Cons.");
+                            lineChart.invalidate();
+                        }
+
+// Temperature + Humidity + FreezingDuration +  FreezingConsumption
+
+                        if (temperatureChecked && humidityChecked && freezDurationChecked && consumptionChecked){
+
+                            ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+                            dataSets.add(temperatureDataSet);
+                            dataSets.add(humidityDataSet);
+                            dataSets.add(freezDurationDataSet);
+                            dataSets.add(freezConsumptionDataSet);
+
+                            LineData lineData = new LineData(dataSets);
+                            lineChart.setData(lineData);
+                            lineChart.getDescription().setText("Temperature & Humidity & Freez. & Freezing Cons.");
+                            lineChart.invalidate();
+                        }
+
                     }
 
-                    LineDataSet humidityDataSet = new LineDataSet(humidityEntries, "℃");
-                    humidityDataSet.setColors(ColorTemplate.getHoloBlue());
-                    humidityDataSet.setValueTextColor(Color.parseColor("#ffffff"));
-
-                    Legend legend = lineChart.getLegend();
-                    legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-                    legend.setTextColor(Color.BLACK);
-                    legend.setExtra(ColorTemplate.MATERIAL_COLORS, labels);
-
-                    LineData lineData = new LineData(humidityDataSet);
-                    lineChart.setData(lineData);
-                    lineChart.invalidate();
-
-                }
-
-                else if((cbTemperature.isChecked()) && (!cbHumidity.isChecked())){
-
-                    lineChart.setVisibility(View.INVISIBLE);
-                    barChart.setVisibility(View.VISIBLE);
-
-                   /* YourData[] group1 = ...;
-                    YourData[] group2 = ...;*/
-
-                    List<BarEntry> temperatureEntries = new ArrayList<>();
-                    List<BarEntry> humidityEntries = new ArrayList<>();
-
-
-                    for(TemperatureLog data : dane) {
-                        temperatureEntries.add(new BarEntry(data.uid, data.getTemperature()));
-                        humidityEntries.add(new BarEntry(data.uid, data.getHumidity()));
-                    }
-
-                    BarDataSet temperatureDataSet = new BarDataSet(temperatureEntries, "Temp.");
-                    BarDataSet humidityDataSet = new BarDataSet(humidityEntries, "Humidity");
-
-                    float groupSpace = 0.06f;
-                    float barSpace = 0.02f;
-                    float barWidth = 0.45f;
-
-                    BarData data = new BarData(temperatureDataSet, humidityDataSet);
-                    data.setBarWidth(barWidth); // set the width of each bar
-                    barChart.setData(data);
-                    barChart.groupBars(1980f, groupSpace, barSpace); // perform the "explicit" grouping
-                    barChart.invalidate();
-                }
-                    }
                 });
 
     }
 
-    public static class DateRange{
-
+    public static class DateRangeTemperature{
 
         public Date start = new Date();
         public Date end = new Date();
-
 
         void setStartDate(int year, int month, int date) {
             start.setYear(year);
@@ -230,15 +445,14 @@ public class TemperatureFragment extends Fragment {
         }
 
         void setStartTime(int hrs, int min){
+
             start.setHours(hrs);
             start.setMinutes(min);
-
         }
 
         void setStopTime(int hrs, int min){
             end.setHours(hrs);
             end.setMinutes(min);
         }
-
     }
 }

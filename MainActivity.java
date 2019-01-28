@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button showTemperatureButton = (Button)findViewById(R.id.btnTemperature);
+        Button showOvenButton = (Button)findViewById(R.id.btnOven);
 
         showTemperatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +39,17 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
             }
 
+        });
+
+        showOvenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.buttons_container, new ExtractByDateFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
         });
 
     }

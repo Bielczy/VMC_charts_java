@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".db.TemperatureFragment"
+    android:id="@+id/current_data_stream_fragment"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/colorTemperatureChart">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorTemperatureChart">
+
+        <TextView
+            android:id="@+id/etykieta"
+            android:layout_width="220dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/etykieta"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/btnChartOven"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnChartOven"
+            android:layout_width="95dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/btnChartOven"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/etykieta"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="45dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="137dp" />
+
+        <CheckBox
+            android:id="@+id/cbMag1"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:checked="false"
+            android:text="@string/cbMag1"
+            android:textSize="12sp"
+            app:buttonTint="@color/colorTemperature"
+            app:layout_constraintBottom_toTopOf="@+id/cbMag2"
+            app:layout_constraintEnd_toStartOf="@+id/cbMag1Power"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <CheckBox
+            android:id="@+id/cbMag2"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="11dp"
+            android:checked="false"
+            android:text="@string/cbMag2"
+            android:textSize="12sp"
+            app:buttonTint="@color/colorHumidity"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/cbMag2Power"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cbMag1" />
+
+        <CheckBox
+            android:id="@+id/cbMag2Power"
+            android:layout_width="100dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="11dp"
+            android:checked="false"
+            android:text="@string/cbMag2Power"
+            android:textSize="12sp"
+            app:buttonTint="@color/colorFreezingConsumption"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/cbLampOn"
+            app:layout_constraintStart_toEndOf="@+id/cbMag2"
+            app:layout_constraintTop_toBottomOf="@+id/cbMag1Power" />
+
+        <CheckBox
+            android:id="@+id/cbMag1Power"
+            android:layout_width="100dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:checked="false"
+            android:text="@string/cbMag1Power"
+            android:textSize="12sp"
+            app:buttonTint="@color/colorFreezingDuration"
+            app:layout_constraintBottom_toTopOf="@+id/cbMag2Power"
+            app:layout_constraintEnd_toStartOf="@+id/cbLamp"
+            app:layout_constraintStart_toEndOf="@+id/cbMag1"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <CheckBox
+            android:id="@+id/cbLamp"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/cbLamp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/cbLampOn"
+            app:layout_constraintEnd_toStartOf="@+id/cbTick"
+            app:layout_constraintStart_toEndOf="@+id/cbMag1Power"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <CheckBox
+            android:id="@+id/cbLampOn"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="11dp"
+            android:text="@string/cbLampOn"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/cbActual"
+            app:layout_constraintStart_toEndOf="@+id/cbMag2Power"
+            app:layout_constraintTop_toBottomOf="@+id/cbLamp" />
+
+        <CheckBox
+            android:id="@+id/cbTick"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/cbTick"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/cbActual"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cbLamp"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <CheckBox
+            android:id="@+id/cbActual"
+            android:layout_width="70dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="11dp"
+            android:text="@string/cbActual"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cbLampOn"
+            app:layout_constraintTop_toBottomOf="@+id/cbTick" />
+
+        <FrameLayout
+            android:id="@+id/LineChartTemperature"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline5">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+
+
+       
+
+
+    </android.support.constraint.ConstraintLayout>
+    </FrameLayout>

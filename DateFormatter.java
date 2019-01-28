@@ -12,10 +12,12 @@ public class DateFormatter {
     String date = "";
 
     public DateFormatter(String date){
-       this.date = date;
+
+        this.date = date;
     }
 
     public static String toString(Date date){
+
         return formatter.format(date);
     }
 

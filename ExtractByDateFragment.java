@@ -27,7 +27,8 @@ import java.util.function.Function;
     TextView start_date, stop_date, start_time, stop_time;
     Button btnDateStart, btnDateStop, btnTimeStart, btnTimeStop;
 
-    private TemperatureFragment.DateRange range = new TemperatureFragment.DateRange();
+    private TemperatureFragment.DateRangeTemperature rangeTemperature = new TemperatureFragment.DateRangeTemperature();
+    private OvenFragment.DateRangeOven rangeOven = new OvenFragment.DateRangeOven();
 
     private String start, end;
     private String timeStart, timeStop;
@@ -66,8 +67,6 @@ import java.util.function.Function;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-       /* start_date =  view.findViewById(R.id.start_date);
-        stop_date = view.findViewById(R.id.stop_date);*/
         btnDateStart = view.findViewById(R.id.btnDateStart);
         btnDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,13 +101,24 @@ import java.util.function.Function;
 
 
 
-        view.findViewById(R.id.btnShow).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btnShowTemperature).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.extractByDateMainContiner, TemperatureFragment.NewInstance(range))
+                        .add(R.id.extractByDateMainContiner, TemperatureFragment.NewInstance(rangeTemperature))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        view.findViewById(R.id.btnShowOven).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.extractByDateMainContiner, OvenFragment.NewInstance(rangeOven))
                         .addToBackStack(null)
                         .commit();
             }
@@ -120,7 +130,8 @@ import java.util.function.Function;
         newFragmentDataStart.onDateStartSelectedCallback = new DatePickerStartFragment.OnDateStartSelected() {
             @Override
             public void onSelected(DatePicker view, int year, int month, int day) {
-                range.setStartDate(year, month, day);
+                rangeTemperature.setStartDate(year, month, day);
+                rangeOven.setStartDate(year, month, day);
             }
         };
         newFragmentDataStart.show(getActivity().getSupportFragmentManager(), "datePickerStart");
@@ -132,7 +143,8 @@ import java.util.function.Function;
 
             @Override
             public void onSelected(DatePicker view, int year, int month, int day) {
-                range.setStopDate(year, month, day);
+                rangeTemperature.setStopDate(year, month, day);
+                rangeOven.setStopDate(year, month, day);
             }
         };
         newFragmentDataStop.show(getActivity().getSupportFragmentManager(), "datePickerStop");
@@ -144,7 +156,8 @@ import java.util.function.Function;
 
             @Override
             public void onSelected(TimePicker view, int hrs, int min) {
-                range.setStartTime(hrs, min);
+                rangeTemperature.setStartTime(hrs, min);
+                rangeOven.setStartTime(hrs, min);
             }
         };
         newFragmentTimeStart.show(getActivity().getSupportFragmentManager(), "timePickerStart");
@@ -155,7 +168,8 @@ import java.util.function.Function;
         newFragmentTimeStop.onTimeStopSelectedCallback = new TimePickerStopFragment.onTimeStopSelected() {
             @Override
             public void onSelected(TimePicker view, int hrs, int min) {
-                range.setStopTime(hrs, min);
+                rangeTemperature.setStopTime(hrs, min);
+                rangeOven.setStopTime(hrs, min);
             }
         };
         newFragmentTimeStop.show(getActivity().getSupportFragmentManager(), "timePickerStop");

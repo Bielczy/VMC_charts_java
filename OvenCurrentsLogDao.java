@@ -22,13 +22,14 @@ public interface OvenCurrentsLogDao {
     Single<List<OvenCurrentLog>> getLast(int limit);
 
     @Query("SELECT * FROM oven_currents_logs WHERE date BETWEEN :start AND :end")
-    Single<List<OvenCurrentLog>> getAllLogs(String start, String end);
+    Single<List<OvenCurrentLog>> getByDate(String start, String end);
 
     @Insert
-    void insertAll(OvenCurrentLog... logs);
+    void insertAll(List<OvenCurrentLog> logs);
 
-    default Completable insert(OvenCurrentLog... logs){
+    default Completable insert(List<OvenCurrentLog> logs){
         return Completable.fromRunnable(()->insertAll(logs))
                 .subscribeOn(Schedulers.io());
     }
 }
+

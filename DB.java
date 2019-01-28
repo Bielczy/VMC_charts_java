@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers;
                 TemperatureLog.class,
                 OvenCurrentLog.class,
         },
-        version = 1,
+        version = 2,
         exportSchema = false
 )
 public abstract class DB extends RoomDatabase {
@@ -40,7 +40,7 @@ public abstract class DB extends RoomDatabase {
             synchronized (DB.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            DB.class, "Logs_databasex2")
+                            DB.class, "Logs_databaset")
                             .fallbackToDestructiveMigration()
                             .addCallback(DataBaseCallback)
                             .allowMainThreadQueries()
@@ -64,19 +64,45 @@ public abstract class DB extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final TemperatureLogDao temperatureLogDao;
+        private final OvenCurrentsLogDao ovenCurrentsLogsDao;
 
         PopulateDbAsync(DB db) {
             temperatureLogDao = db.temperatureLogs();
+            ovenCurrentsLogsDao = db.ovenCurrentsLogs();
         }
 
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            //temperatureLogDao.generateTemperatureLogs();
             generateTemperatureLogs();
+            generateOvenLogs();
             return null;
         }
+
+        private void generateOvenLogs() {
+
+            List<OvenCurrentLog> logs = new ArrayList<>();
+            long baseTimeMs = new Date(2018, 11, 21, 10, 11, 0).getTime();
+
+            int dateStep = 1000 * 60 * 5;
+
+            for (int i = 0; i < 100; i++) {
+                OvenCurrentLog ovenLog = new OvenCurrentLog();
+                ovenLog.setMag1((new Random().nextInt() % 100) +7);
+                ovenLog.setMag2((new Random().nextInt() % 100) -2);
+                ovenLog.setMag1Power((new Random().nextInt() % 100) +15);
+                ovenLog.setMag2Power(new Random().nextInt() % 100);
+
+                baseTimeMs += dateStep;
+                Date nextDate = new Date(baseTimeMs);
+                ovenLog.setDate(DateFormatter.toString(nextDate));
+
+                logs.add(ovenLog);
+            }
+            ovenCurrentsLogsDao.insertAll(logs);
+        }
+
 
         void generateTemperatureLogs() {
             List<TemperatureLog> logs = new ArrayList<>();
@@ -85,11 +111,17 @@ public abstract class DB extends RoomDatabase {
 
             int dateStep = 1000 * 60 * 5;
 
+            Random rand = new Random();
+
             for (int i = 0; i < 100; i++) {
                 TemperatureLog log = new TemperatureLog();
 
+                int a = rand.nextInt(3);
+                boolean b = rand.nextBoolean();
                 log.setHumidity(new Random().nextFloat() % 100);
                 log.setTemperature((new Random().nextFloat() % 100) - 20);
+                log.setCurrentConsumptionSensorOK(b);
+                log.setFreezingDurationS(a);
 
                 baseTimeMs += dateStep;
                 Date nextDate = new Date(baseTimeMs);

@@ -50,6 +50,7 @@ public class DatePickerStartFragment extends DialogFragment
 
        start_date.setText(String.format("%02d", day) + "-" + String.format("%02d", month + 1) + "-" + year);
 
+
         if(onDateStartSelectedCallback != null)
             onDateStartSelectedCallback.onSelected(view, year, month, day);
     }

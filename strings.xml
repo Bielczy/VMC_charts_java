@@ -6,11 +6,12 @@
 
     <string name="btnCommon">Common</string>
     <string name="btnSpecific">Specific</string>
-    <string name="etykieta">TEMPERATURE</string>
+    <string name="etykieta">Choose the components to draw and click the CHART button.</string>
     <string name="tvMaxUID"></string>
     <string name="tvChoosenUID"></string>
-    <string name="btnShow">SHOW</string>
-    <string name="etykieta2">Extracting by date - TEMPERATURE.</string>
+    <string name="btnShowTemperature">SHOW TEMPERATURE</string>
+    <string name="btnShowOven">SHOW OVEN</string>
+    <string name="etykieta2">EXTRACTING BY DATE</string>
     <string name="cbTemperature">Temperature</string>
     <string name="cbHumidity">Humidity</string>
     <string name="cbFreezConsump">Freez. Consumption</string>
@@ -30,6 +31,16 @@
     <string name="btnTemperature">TEMPERATURE</string>
     <string name="btnOven">OVEN</string>
     <string name="btnRange">RANGE</string>
+    <string name="btnChartOven">CHART</string>
+    <string name="btnChartTemperature">CHART</string>
+    <string name="cbMag1">Mag. 1</string>
+    <string name="cbMag2">Mag. 2</string>
+    <string name="cbMag1Power">Mag. 1 Power</string>
+    <string name="cbMag2Power">Mag. 2 Power</string>
+    <string name="cbLamp">Lamp</string>
+    <string name="cbLampOn">LampOn</string>
+    <string name="cbTick">Tick</string>
+    <string name="cbActual">Actual</string>
 
 
 
